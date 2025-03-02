@@ -18,11 +18,26 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Ensure this path is correct
 ]
+
+
+# Set STATIC_URL and STATIC_ROOT
+STATIC_URL = '/static/'
+
+# Make sure to set STATIC_ROOT for production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Add this to ensure Django collects the static files correctly when deploying to production
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# Make sure to include the 'django.contrib.staticfiles' app in INSTALLED_APPS
+INSTALLED_APPS = [
+    # other apps
+    'django.contrib.staticfiles',
+]
+
 
 # Only needed for production (Vercel)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -40,7 +55,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-#aviv!ca8_u=utxxoh!!$m71)f52=qs!*w-+v=h&3mpb*s&f13"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
